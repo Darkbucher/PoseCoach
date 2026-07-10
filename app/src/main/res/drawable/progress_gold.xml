@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Horizontal gold gradient used as the progress bar fill.
+    android:angle must be a multiple of 45.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Track (very subtle gold tint) -->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="@color/progress_track" />
+        </shape>
+    </item>
+
+    <!-- Progress fill – shimmering gold gradient -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <gradient
+                    android:startColor="@color/gold_dark"
+                    android:centerColor="@color/gold_light"
+                    android:endColor="@color/gold"
+                    android:angle="0" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

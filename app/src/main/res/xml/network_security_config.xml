@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Config for PoseCoach
+    The target URL (https://angle-assist-pro.lovable.app/) is HTTPS-only,
+    so no cleartext exceptions are needed. This config is included as a
+    best-practice declaration and to future-proof the app.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust the system's default CA store -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

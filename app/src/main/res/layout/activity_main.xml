@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Main Activity Layout – luxury edition
+    ─────────────────────────────────────────────────────────────────
+    • Obsidian background — no white flash when page loads
+    • SwipeRefreshLayout with gold spinner
+    • WebView starts invisible, fades in programmatically after load
+    • 2dp gold shimmer progress bar pinned to top edge
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/obsidian"
+    android:fitsSystemWindows="false">
+
+    <!-- Pull-to-refresh wrapper -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
+
+        <!-- WebView starts invisible; revealed with a fade after load -->
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@color/obsidian"
+            android:overScrollMode="ifContentScrolls" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Gold shimmer progress bar – 2dp, pinned to top -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="top"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/progress_gold"
+        android:indeterminate="false" />
+
+</FrameLayout>

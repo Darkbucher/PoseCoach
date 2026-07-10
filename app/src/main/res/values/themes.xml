@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Base application theme – edge-to-edge, no ActionBar
+         ═══════════════════════════════════════════════════════════ -->
+    <style name="Theme.PoseCoach" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorPrimaryDark">@color/obsidian</item>
+        <item name="colorAccent">@color/gold</item>
+
+        <!-- Pitch-black window background eliminates flash between activities -->
+        <item name="android:windowBackground">@color/obsidian</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/obsidian</item>
+
+        <!-- Draw behind system bars for true edge-to-edge -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <!-- Smooth activity transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
+
+        <!-- No title bar -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+
+        <!-- Smooth overscroll glow tinted gold -->
+        <item name="android:colorEdgeEffect">@color/gold</item>
+    </style>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Splash screen theme – fully immersive, no flicker
+         ═══════════════════════════════════════════════════════════ -->
+    <style name="Theme.PoseCoach.Splash" parent="Theme.PoseCoach">
+        <item name="android:windowBackground">@color/obsidian</item>
+        <!-- Keep status/nav bar dark icons off (white icons on black bg) -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Main WebView theme
+         ═══════════════════════════════════════════════════════════ -->
+    <style name="Theme.PoseCoach.Main" parent="Theme.PoseCoach">
+        <item name="android:windowBackground">@color/obsidian</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+</resources>

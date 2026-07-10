@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Luxury Splash Screen
+    ─────────────────────────────────────────────────────────────────
+    • Full obsidian black background
+    • Radial gold glow behind a ringed logo icon
+    • App name in a premium serif-adjacent weight
+    • Hairline gold divider
+    • Elegant tagline in spaced capitals
+    • Three pulsing gold dots as a loading indicator
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/obsidian">
+
+    <!-- Centered content column -->
+    <LinearLayout
+        android:id="@+id/splashContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingHorizontal="48dp">
+
+        <!-- Gold radial glow + ringed icon -->
+        <FrameLayout
+            android:id="@+id/logoContainer"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal">
+
+            <!-- Radial glow -->
+            <View
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:background="@drawable/gold_glow" />
+
+            <!-- Gold ring border -->
+            <View
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:background="@drawable/gold_ring" />
+
+            <!-- Central letter "P" as the logo mark -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="P"
+                android:textColor="@color/gold"
+                android:textSize="52sp"
+                android:textStyle="bold"
+                android:fontFamily="serif"
+                android:letterSpacing="0.05" />
+
+        </FrameLayout>
+
+        <Space android:layout_width="0dp" android:layout_height="28dp" />
+
+        <!-- App name -->
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="POSE COACH"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.22"
+            android:fontFamily="sans-serif-light" />
+
+        <Space android:layout_width="0dp" android:layout_height="16dp" />
+
+        <!-- Gold divider -->
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gold_divider" />
+
+        <Space android:layout_width="0dp" android:layout_height="16dp" />
+
+        <!-- Tagline -->
+        <TextView
+            android:id="@+id/tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="PERFECT YOUR FORM"
+            android:textColor="@color/gold"
+            android:textSize="11sp"
+            android:letterSpacing="0.35"
+            android:fontFamily="sans-serif-light" />
+
+    </LinearLayout>
+
+    <!-- Three pulsing dots pinned near the bottom -->
+    <LinearLayout
+        android:id="@+id/dotsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="72dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/gold_dot" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/gold_dot" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/gold_dot" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── Obsidian black base ───────────────────────────────────── -->
+    <color name="obsidian">#080808</color>
+    <color name="obsidian_mid">#111111</color>
+    <color name="obsidian_surface">#1A1A1A</color>
+
+    <!-- ── Liquid gold accent ────────────────────────────────────── -->
+    <color name="gold">#C9A84C</color>
+    <color name="gold_light">#E8C96A</color>
+    <color name="gold_dark">#8B6914</color>
+    <color name="gold_translucent">#33C9A84C</color>
+
+    <!-- ── Neutral utility ───────────────────────────────────────── -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_80">#CCffffff</color>
+    <color name="white_40">#66ffffff</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Progress bar shimmer track -->
+    <color name="progress_track">#22C9A84C</color>
+</resources>
