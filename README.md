@@ -69,7 +69,14 @@
 
 ---
 
+<<<<<<< HEAD
 <div align="center">
   <p>Designed with ❤️ by Darkbucher Atelier</p>
   <img src="https://img.shields.io/badge/MADE_WITH-OBSIDIAN_%26_GOLD-C9A84C?style=flat-square" alt="Handcrafted" />
 </div>
+=======
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+>>>>>>> 573a903f7228313bcb163473d97230ce9e14430c
