@@ -32,7 +32,6 @@ PoseCoach is a premium Android application designed for athletes, models, and fi
 
 ## 📸 Screenshots
 
-*(Add your screenshots here to showcase the premium UI)*
 
 ## 📄 License
 
