@@ -14,9 +14,17 @@
 
 **PoseCoach** is an ultra-premium hybrid application. It combines a cutting-edge **React 19 / TanStack Start** web engine with a high-performance, immersive **Android shell** to create a seamless "Atelier" experience for creators who demand perfection.
 
-[The Experience](#-the-experience) • [Full Feature List](#-features) • [Tech Stack](#-the-atelier-tech) • [Getting Started](#-getting-started)
+[Explore the Poses](#-pose-library) • [Download APK](#-download-latest-apk) • [Get Started](#-getting-started) • [Tech Stack](#-the-atelier-tech)
 
 </div>
+
+## 📥 Download Latest APK
+
+You can download the latest pre-built debug APK directly from the repository to test the experience on your device.
+
+[**PoseCoach-v1.0-debug.apk**](release/PoseCoach-v1.0-debug.apk)
+
+---
 
 ## 📸 The Experience
 
