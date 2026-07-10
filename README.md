@@ -2,106 +2,91 @@
 
 <img src="metadata/screenshots/banner.png" width="100%" alt="PoseCoach Banner" />
 
-# POSE COACH
-### *Perfect Your Form. Elevate Your Presence.*
+# PoseCoach
 
-[![Platform](https://img.shields.io/badge/Platform-Android-00808080?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
-[![Engine](https://img.shields.io/badge/Engine-TanStack_Start-C9A84C?style=for-the-badge&logo=react&logoColor=white)](https://tanstack.com/start)
-[![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![License](https://img.shields.io/badge/License-MIT-gold?style=for-the-badge)](LICENSE)
+**A hybrid Android app that overlays real-time pose guidance on the camera feed — entirely on-device, no server, no accounts.**
 
----
+[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=flat-square&logo=android&logoColor=white)](https://developer.android.com)
+[![Framework](https://img.shields.io/badge/Framework-TanStack_Start-C9A84C?style=flat-square&logo=react&logoColor=white)](https://tanstack.com/start)
+[![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS_v4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-**PoseCoach** is an ultra-premium hybrid application. It combines a cutting-edge **React 19 / TanStack Start** web engine with a high-performance, immersive **Android shell** to create a seamless "Atelier" experience for creators who demand perfection.
-
-[Explore the Poses](#-pose-library) • [Download APK](#-download-latest-apk) • [Get Started](#-getting-started) • [Tech Stack](#-the-atelier-tech)
+[Features](#features) • [Architecture](#architecture) • [Setup](#setup) • [Limitations](#known-limitations--roadmap)
 
 </div>
 
-## 📥 Download Latest APK
-
-You can download the latest pre-built debug APK directly from the repository to test the experience on your device.
-
-[**PoseCoach-v1.0-debug.apk**](release/PoseCoach-v1.0-debug.apk)
-
 ---
 
-## 📸 The Experience
+## What it does
+
+PoseCoach shows a translucent pose silhouette over your live camera feed and gives real-time positional feedback (tilt / turn / chin / shoulder angle) so you can match a target pose before taking a photo. All camera frames and processing stay on-device — nothing is uploaded or stored remotely.
 
 <table align="center">
   <tr>
-    <td width="50%"><img src="metadata/screenshots/camera_view.png" alt="Live Silhouette Guide" /></td>
-    <td width="50%"><img src="metadata/screenshots/pose_library.png" alt="Curated Pose Library" /></td>
+    <td width="50%"><img src="metadata/screenshots/camera_view.png" alt="Live silhouette overlay" /></td>
+    <td width="50%"><img src="metadata/screenshots/pose_library.png" alt="Pose library" /></td>
   </tr>
   <tr>
-    <td align="center"><b>Live Silhouette Guidance</b><br/>Real-time positioning with gold-glow overlays.</td>
-    <td align="center"><b>Curated Pose Library</b><br/>A boutique selection of forms for every occasion.</td>
+    <td align="center"><b>Live silhouette + angle overlay</b></td>
+    <td align="center"><b>Pose library</b></td>
   </tr>
 </table>
 
----
+*(Demo GIF coming soon — see [Known Limitations](#known-limitations--roadmap))*
 
-## 🌟 Features
+## Features
 
-*   🪞 **Live Silhouette Overlay** — A translucent mannequin sits on top of the camera feed so you know exactly where to stand.
-*   🎯 **Angle Coach** — On-device tilt / turn / chin / shoulder guidance in real time.
-*   📚 **Curated Pose Library** — Travel, dating, lifestyle, business, couple, mirror selfie, and more.
-*   ✨ **Atelier UI** — Cormorant Garamond serifs, gold accents, glassmorphism, and a shutter button that glows amber on tap.
-*   🔒 **100% On-Device** — Frames never leave your phone. No servers, no uploads, no accounts. **Privacy by design.**
-*   📸 **One-Tap Capture** — Instant download, saves directly to your native Android gallery.
-*   🤏 **Pinch-to-Zoom** — Scale the pose overlay to fit your frame; mirror-aware for front-camera shots.
-*   💾 **Persistent Permissions** — The Android shell remembers camera access so you are never interrupted.
+- **Live silhouette overlay** — a target pose is rendered on `<canvas>` on top of the camera feed for direct visual alignment.
+- **Angle coach** — computes tilt/turn/chin/shoulder offsets from the live camera stream and surfaces corrective guidance in real time (`useAngleCoach.ts`).
+- **Pose library** — curated set of poses across travel, lifestyle, business, and couple categories.
+- **On-device only** — camera frames never leave the device; no backend, no accounts, no analytics.
+- **One-tap capture** — saves directly to the native Android gallery via a custom JS↔native bridge.
+- **Pinch-to-zoom overlay** — scale/position the silhouette to fit the frame; mirror-aware for front camera.
+- **Native Android integration** — immersive display mode, haptic feedback on shutter/UI actions, persistent camera permission handling.
 
----
+## Architecture
 
-## 🧱 The Atelier Tech
+PoseCoach is a **hybrid app**: a native Android shell (Kotlin) hosting a web-based UI (React), connected by a custom JavaScript bridge.
 
-### **The Android Shell**
-The native container provides the high-end foundation:
-*   **Immersive Mode:** Uses `WindowInsetsControllerCompat` to flow content into the notch and around system bars.
-*   **Haptic Engine:** Native `HapticFeedbackConstants` for physical confirmation of shutter and UI actions.
-*   **MediaStore Bridge:** Custom `JavascriptInterface` to decode Base64/Blob data and save it to `Pictures/PoseCoach`.
+```
+┌─────────────────────────────────────────────┐
+│  Android Shell (Kotlin)                     │
+│  - WebView host, permissions, lifecycle     │
+│  - WindowInsetsControllerCompat (immersive) │
+│  - HapticFeedbackConstants                  │
+│  - JavascriptInterface  ───────────────┐    │
+└─────────────────────────────────────────│───┘
+                                          │ Base64/Blob bridge
+┌─────────────────────────────────────────▼───┐
+│  Web Engine (React 19 / TanStack Start)     │
+│  - MediaDevices.getUserMedia (camera)       │
+│  - <canvas> silhouette + angle overlay      │
+│  - useAngleCoach.ts (pose angle detection)  │
+│  - Pose catalog (lib/silhouettes.ts)        │
+└──────────────────────────────────────────────┘
+```
 
-### **The Web Engine**
-The core experience is built with modern, local-first web technologies:
+**Android shell**
+| Component | Role |
+|---|---|
+| `WindowInsetsControllerCompat` | Immersive display, content flows around system bars/notch |
+| `HapticFeedbackConstants` | Native haptic confirmation on shutter/UI actions |
+| Custom `JavascriptInterface` | Decodes Base64/Blob image data from the web layer and writes it to `MediaStore` (`Pictures/PoseCoach`) |
 
+**Web engine**
 | Layer | Choice |
 |---|---|
-| **Framework** | **TanStack Start v1** (React 19, file-based routing) |
-| **Bundler** | **Vite 7** |
-| **Styling** | **Tailwind CSS v4** (Native `@import`, theme tokens) |
-| **Typography** | Cormorant Garamond (Display) · Inter (UI) |
-| **Camera** | `MediaDevices.getUserMedia` + `<canvas>` overlay |
-| **Runtime** | Cloudflare Workers (Edge SSR) |
+| Framework | TanStack Start v1 (React 19, file-based routing) |
+| Bundler | Vite 7 |
+| Styling | Tailwind CSS v4 |
+| Camera | `MediaDevices.getUserMedia` + `<canvas>` overlay |
+| Runtime | Cloudflare Workers (Edge SSR) |
 
----
+## Project structure
 
-## 🚀 Getting Started
-
-### **Web Development**
-```bash
-# 1. Install dependencies
-bun install
-
-# 2. Run the dev server (http://localhost:8080)
-bun run dev
-
-# 3. Production build
-bun run build
-```
-*Requires Bun ≥ 1.1. Node/pnpm/npm also work.*
-
-### **Android Deployment**
-1.  Open the project in **Android Studio Koala (2024.1.1)** or newer.
-2.  Set `TARGET_URL` in `MainActivity.kt` to your deployment.
-3.  Deploy to a physical device to experience the haptics and immersive UI.
-
----
-
-## 🗂️ Project Structure
 ```text
 src/
-├── routes/              # File-based routes (TanStack Start)
+├── routes/
 │   ├── __root.tsx       # App shell, fonts, SEO defaults
 │   ├── index.tsx        # /        → CameraScreen
 │   └── library.tsx      # /library → PoseLibrary
@@ -116,10 +101,37 @@ src/
     └── silhouettes.ts       # Pose catalog
 ```
 
----
+## Setup
+
+### Web development
+```bash
+bun install        # Requires Bun ≥ 1.1 (npm/pnpm also work)
+bun run dev         # http://localhost:8080
+bun run build       # Production build
+```
+
+### Android deployment
+1. Open the project in Android Studio Koala (2024.1.1) or newer.
+2. Set `TARGET_URL` in `MainActivity.kt` to your deployment URL (or local dev server).
+3. Run on a physical device — the camera, haptics, and immersive UI require real hardware and will not behave correctly in the emulator.
+
+### Try it without building
+A pre-built **debug** APK is available at [`release/PoseCoach-v1.0-debug.apk`](release/PoseCoach-v1.0-debug.apk). It is unsigned and intended for local testing only — expect an "install blocked" warning on stock Android unless you allow installs from unknown sources.
+
+## Known limitations & roadmap
+
+Being upfront about the current state:
+
+- **Debug build only.** No signed release APK or Play Store listing yet.
+- **No demo video yet.** A short screen recording of the live overlay + angle coaching is the next priority — planned for this README.
+- **Angle detection scope.** `useAngleCoach` currently tracks tilt/turn/chin/shoulder alignment against the selected silhouette; it does not yet do full-body pose estimation (e.g. joint-level keypoints via a ML model). That's a planned direction, not a current claim.
+- **WebView-based, not a fully native UI.** The Android layer hosts a web engine rather than rendering native views; this was a deliberate trade-off for iteration speed, at some cost to raw performance versus a fully native camera pipeline.
+- **Single platform.** Android only; no iOS build.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 <div align="center">
-  <p>Designed with ❤️ by Darkbucher Atelier</p>
-  <img src="https://img.shields.io/badge/PRIVACY-100%25_ON_DEVICE-green?style=flat-square" alt="Privacy First" />
-  <img src="https://img.shields.io/badge/MADE_WITH-OBSIDIAN_%26_GOLD-C9A84C?style=flat-square" alt="Handcrafted" />
+<sub>Built by Adarsh Singh</sub>
 </div>
